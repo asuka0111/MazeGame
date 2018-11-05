@@ -7,7 +7,11 @@ public class Bullet : MonoBehaviour {
     // Members
     public float moveSpeed = 7.0f;
     private float maxDistance = 0.0f;
+	private float damage = 1.0f;
 
+	private GameObject triggerEnemy;
+
+	
 	// Use this for initialization
 	void Start () {
 		
@@ -21,5 +25,16 @@ public class Bullet : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		if(other.tag == "Enemy")
+		{
+			triggerEnemy = other.gameObject;
+			triggerEnemy.GetComponent<Enemy>().health -= damage;
+			Destroy(this.gameObject);
+		}
+	
 	}
 }
